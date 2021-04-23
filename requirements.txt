@@ -16,9 +16,6 @@ joblib==1.0.1
 jupyter-client==6.1.7
 jupyter-core==4.6.3
 MarkupSafe==1.1.1
-mkl-fft==1.3.0
-mkl-random==1.1.1
-mkl-service==2.3.0
 numpy==1.19.2
 olefile==0.46
 pandas==1.2.3
@@ -36,10 +33,8 @@ pyzmq==19.0.2
 scikit-learn==0.22.1
 scikit-surprise==1.1.1
 scipy==1.4.1
-setuptools==52.0.0.post20210125
 six==1.15.0
 torch==1.8.1
-torchaudio==0.8.0a0+e4e171a
 torchvision==0.9.1
 tornado==6.0.4
 tqdm==4.59.0
