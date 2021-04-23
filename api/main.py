@@ -1,12 +1,20 @@
 from flask import Blueprint, request
+from .utils.YelpRecommender import *
 import logging
 import json
+import numpy as np
+import pandas as pd
+import torch
+import torch.nn as nn
+import os
 
 
 LOG = logging.getLogger(__name__)
 
 main = Blueprint('main', __name__)
 
+
+REC = YelpRecommender()
 
 @main.route('/')
 def inital_load():
@@ -26,13 +34,28 @@ def inital_load():
 def train():
     return 'Hello'
 
-
-# returns recommendations
-@main.route('/api/getReccomendations')
+# Endpoint to get Recommendation for a Group of Users of an item in a list of items
+# Inputs:
+#    users -> Comma seperated list of user IDs, from Yelp Data
+#    items -> Comma seperated list of item IDs, from Yelp Data (item in this case is a business)
+# Returns:
+#    Recommendation with format -> "itemID,rating_for_item"
+# Example:
+#    inputs:
+#       users: "BvcPaFl6N8aQWcdak2v_Sg,b_-AmmH9I3lvhU7PANjFrw,OhOgtmlIWSmikT25wcWBpA,8q7-9Lv6NTlOLqnm5Yk0hg,94u9RZbO2AKAGV-sXLjX4w"
+#       items: "0ja9ouEv_w8FWe1F5KMS4g,Cx8BotgsDzKFpH7zSmykkQ"
+#    output:
+#       recommendation: "Cx8BotgsDzKFpH7zSmykkQ,3.02"
+@main.route('/api/getReccomendations', methods=['GET', 'POST'])
 def getrecs():
+    users = request.args.get('users').split(',')
+    items = request.args.get('items').split(',')
+    user_ndxs = le.transform(users) # Get the user index
+    item_ndxs = le_item.transform(items) # Get the item index
     #payload is inital parameters
-
-    return 'Hello'
+    item, rating = REC.getRecommendation(user_ndxs, item_ndxs)
+    print(le_item.inverse_transform([item]).item())
+    return "%s,%.2f" % (le_item.inverse_transform([item]).item(), rating)
 
 
 # returns details of a restaurant
