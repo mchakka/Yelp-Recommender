@@ -45,7 +45,7 @@ def train():
 #       users: "BvcPaFl6N8aQWcdak2v_Sg,b_-AmmH9I3lvhU7PANjFrw,OhOgtmlIWSmikT25wcWBpA,8q7-9Lv6NTlOLqnm5Yk0hg,94u9RZbO2AKAGV-sXLjX4w"
 #       items: "0ja9ouEv_w8FWe1F5KMS4g,Cx8BotgsDzKFpH7zSmykkQ"
 #    output:
-#       recommendation: "Cx8BotgsDzKFpH7zSmykkQ,3.02"
+#       recommendation: "0ja9ouEv_w8FWe1F5KMS4g,3.30"
 @main.route('/api/getReccomendations', methods=['GET', 'POST'])
 def getrecs():
     users = request.args.get('users').split(',')
