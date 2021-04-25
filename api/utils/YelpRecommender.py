@@ -6,13 +6,13 @@ import torch.nn as nn
 import os
 
 # Trained Class Encoders to map UserID and ItemID from Yelp to a number
-le = load('./api/utils/userlabelenc.joblib') 
-le_item = load('./api/utils/itemlabelenc.joblib')
+le = load('./api/utils/userlabelenc_allData_correct.joblib') 
+le_item = load('./api/utils/itemlabelenc_allData_correct.joblib')
 # =================================================================
 
 # PyTorch Neural Collaborative Filtering Model Implementation
 EMBEDDING_SIZE = 16
-HIDDEN_SIZE = 128
+HIDDEN_SIZE = 64
 
 class NCF(nn.Module):
 
@@ -41,7 +41,7 @@ class NCF(nn.Module):
 
 # Load Trained Model from Exported State Dictionary
 TRAINED_MODEL = NCF()
-ncf_state_dict = torch.load('./api/utils/ncf_all_statedict.pt', map_location=torch.device('cpu'))
+ncf_state_dict = torch.load('./api/utils/ncf_all_statedict_64d300e.pt', map_location=torch.device('cpu'))
 TRAINED_MODEL.load_state_dict(ncf_state_dict)
 # =================================================================
 
